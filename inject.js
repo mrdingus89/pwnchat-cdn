@@ -14,7 +14,7 @@ document.documentElement.innerHTML = `
     </style>
   </head>
   <body>
-    <b>Injecting Mod..</b>
+    <b>Injecting Payload...</b>
   </body>
 `;
 
